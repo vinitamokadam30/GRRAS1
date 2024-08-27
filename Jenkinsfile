@@ -15,7 +15,8 @@ triggers {
         sh 'mvn install'
         }
     }
-        stage(compiledeploy){
+        stage {
+	stage(compiledeploy){
         steps{
         sh 'cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps'
 }
