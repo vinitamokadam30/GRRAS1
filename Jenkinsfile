@@ -10,7 +10,7 @@ triggers {
             }
         }
         stage {
-        stage(build)
+        stage(compilebuild){
         steps{
         sh 'mvn install'
         }
