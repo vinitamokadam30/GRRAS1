@@ -1,8 +1,5 @@
 pipeline{
     agent any
-	triggers {
- 	 pollSCM '* * * * *'
-	}
 	parameters {
   choice choices: ['DEV', 'QA', 'UAT'], name: 'ENVIORNMENT'
 }
@@ -19,13 +16,13 @@ pipeline{
 	}
 	stage(compiledeploy){
         steps{
-        sh 'cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps'
-	if [ $ENVIRONMENT = "QA" ];then
-	cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps
-elseif  [ $ENVIRONMENT = "UAT" ];then
-       cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps
-echo "deployment has been done!"
-fi
+        script {
+	sh '''if [ $ENVIRONMENT = "QA" ];then
+		cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps
+	elif  [ $ENVIRONMENT = "UAT" ];then
+       		cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps
+	echo "deployment has been done!"
+	fi'''
 }
 }
 }
