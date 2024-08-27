@@ -1,8 +1,8 @@
 pipeline {
     agent any
-triggers {
-  pollSCM '* * * * *'
-}
+	triggers {
+ 	 pollSCM '* * * * *'
+	}
     stages {
         stage(checkout) {
             steps {
@@ -14,6 +14,7 @@ triggers {
         steps{
         sh 'mvn install'
         }
+	}
     }
         stage {
 	stage(compiledeploy){
@@ -24,4 +25,4 @@ triggers {
 }
 }
 }
-
+}
