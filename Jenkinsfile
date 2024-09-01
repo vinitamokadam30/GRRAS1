@@ -13,6 +13,6 @@ pipeline {
 	                 }}
 		stage('Deployment'){
 		    steps {
-			sh 'cp target/GRRAS1.war /home/grras/slavedir/apache-tomcat-9.0.79/webapps'
+			sh 'cp target/GRRAS1.war /home/grras/slavedir/apache-tomcat-9.0.93/webapps'
 			}}	
 }}
