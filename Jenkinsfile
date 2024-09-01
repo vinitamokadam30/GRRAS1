@@ -1,32 +1,18 @@
-pipeline{
-    agent any
-	parameters {
-  choice choices: ['DEV', 'QA', 'UAT'], name: 'ENVIORNMENT'
-}
-    stages{
-        stage(checkout){
-            steps{
-                git 'https://github.com/vinitamokadam30/GRRAS1.git'
-            }
-        }
-        stage(compilebuild){
-        steps{
-        sh 'mvn install'
-        }
+pipeline {
+	agent{
+	label 'slave-label'
 	}
-	stage(compiledeploy){
-        steps{
-        script {
-	sh '''if [ $ENVIRONMENT = "QA" ];then
-		cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps
-	elif  [ $ENVIRONMENT = "UAT" ];then
-       		cp target/GRRAS1.war /home/vinita/Documents/devops/apache-tomcat-9.0.93/webapps
-	echo "deployment has been done!"
-	fi'''
-}
-}
-}
-}
-}
-
-
+	stages {
+	    stage('Checkout') {
+	        steps {
+			checkout scm			       
+		      }}
+		stage('Build') {
+	           steps {
+			  sh 'JAVA_HOME=/home/grras/slavedir/jdk-11.0.20 /home/grras/slavedir/apache-maven-3.9.4/bin/mvn install'
+	                 }}
+		stage('Deployment'){
+		    steps {
+			sh 'cp target/GRRAS1.war /home/grras/slavedir/apache-tomcat-9.0.79/webapps'
+			}}	
+}}
